@@ -1,0 +1,36 @@
+﻿@model UserEditorModel
+@{
+    ViewData["Title"] = $"Update User '{Model.User.FirstName} {Model.User.LastName}'";
+}
+@section Breadcrumbs
+{
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="@Url.RouteUrl(RouteNames.User.Users)">Users</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>@ViewData["Title"]</span>
+            </li>
+        </ul>
+    </div>
+}
+
+<div class="tabbable-custom ">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a> Update User </a>
+        </li>
+        <li>
+            <a href="#"> Quiz History </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active">
+            <form asp-controller="Users" asp-action="Update" method="post">
+                <partial name="_UserCreateEditor.cshtml" model="Model.User" />
+            </form>
+        </div>
+    </div>
+</div>

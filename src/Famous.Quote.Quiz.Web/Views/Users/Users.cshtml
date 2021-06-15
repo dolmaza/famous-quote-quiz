@@ -1,0 +1,79 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "Users";
+}
+
+@section Breadcrumbs
+{
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <span>@ViewData["Title"]</span>
+            </li>
+        </ul>
+    </div>
+}
+
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="actions">
+            <a class="btn btn-primary" asp-controller="Users" asp-action="Create"><i class="fa fa-plus"></i> Add New</a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="card-body">
+            <table id="users-table" class="table table-bordered table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>User Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Status</th>
+                        <th>Role</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="students-table-body">
+                    @foreach (var item in Model.Users)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.UserName</td>
+                            <td>@item.FirstName</td>
+                            <td>@item.LastName</td>
+                            <td>@item.Status</td>
+                            <td>@item.Role</td>
+                            <td>
+                                <a href="@Url.RouteUrl(RouteNames.User.Update, new {id = item.Id})" class="btn btn-xs btn-primary"> <i class="fa fa-pencil"></i></a>
+                                <button class="btn btn-xs btn-danger delete-btn" data-url="@Url.RouteUrl(RouteNames.User.Delete, new {id = item.Id})">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                                <button class="btn btn-xs btn-danger disable-btn @(item.Status == UserStatus.Disabled ? Html.Raw("hidden") : null)" data-url="@Url.RouteUrl(RouteNames.User.Disable, new {id = item.Id})">
+                                    <i class="fa fa-ban"> Disable</i>
+                                </button>
+
+                                <button class="btn btn-xs btn-success activate-btn @(item.Status == UserStatus.Active ? Html.Raw("hidden") : null)" data-url="@Url.RouteUrl(RouteNames.User.Activate, new {id = item.Id})">
+                                    <i class="fa fa-check-circle"> Activate</i>
+                                </button>
+                                <a href="#" class="btn btn-xs btn-primary"> <i class="fa fa-history"> Quiz History</i></a>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/scripts/User/UserModel.js"></script>
+    <script>
+        $(function () {
+            UserModel.init();
+        });
+    </script>
+}

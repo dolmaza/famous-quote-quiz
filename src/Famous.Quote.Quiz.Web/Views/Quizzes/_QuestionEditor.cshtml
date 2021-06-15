@@ -1,0 +1,43 @@
+﻿@model QuestionDto
+
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="actions">
+            <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o"></i> Save</button>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="card-body">
+            <input type="hidden" class="form-control" asp-for="Id" value="@Model.Id" />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="QuestionText"></label>
+                        <textarea type="text" class="form-control" asp-for="QuestionText">@Model.QuestionText</textarea>
+                        <span class="text-danger" asp-validation-for="QuestionText"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="SortIndex"></label>
+                        <input type="text" class="form-control" asp-for="SortIndex" value="@Model.SortIndex" />
+                        <span class="text-danger" asp-validation-for="SortIndex"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="IsActive"></label>
+                        <div>
+                            <input class="checkbox-bootstrap-switch" asp-for="IsActive" type="checkbox" value="true">
+                            <span class="text-danger" asp-validation-for="IsActive"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

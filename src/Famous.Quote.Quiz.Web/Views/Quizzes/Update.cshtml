@@ -1,0 +1,46 @@
+﻿@model QuizEditorModel
+@{
+    ViewData["Title"] = $"Update Quiz '{Model.Quiz.Name}'";
+}
+@section Breadcrumbs
+{
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="@Url.RouteUrl(RouteNames.Quiz.Quizzes)">Quizzes</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>@ViewData["Title"]</span>
+            </li>
+        </ul>
+    </div>
+}
+
+<div class="tabbable-custom ">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a> Update Quiz </a>
+        </li>
+        <li>
+            <a href="@Url.RouteUrl(RouteNames.Quiz.Questions, new {id = Model.Quiz.Id})"> Questions </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active">
+            <form asp-controller="Quizzes" asp-action="Update" method="post">
+                <partial name="_QuizEditor.cshtml" model="Model.Quiz" />
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/scripts/Quiz/QuizEditorModel.js"></script>
+    <script>
+        $(function () {
+            QuizEditorModel.init();
+        });
+    </script>
+}

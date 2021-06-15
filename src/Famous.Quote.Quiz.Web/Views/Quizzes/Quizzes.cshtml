@@ -1,0 +1,76 @@
+﻿@model QuizViewModel
+@{
+    ViewData["Title"] = "Quizzes";
+}
+
+@section Breadcrumbs
+{
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <span>@ViewData["Title"]</span>
+            </li>
+        </ul>
+    </div>
+}
+
+
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="actions">
+            <a class="btn btn-primary" asp-controller="Quizzes" asp-action="Create"><i class="fa fa-plus"></i> Add New</a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="card-body">
+            <table id="quizzes-table" class="table table-bordered table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Is Published</th>
+                        <th>Questions Count</th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="students-table-body">
+
+                    @foreach (var item in Model.Quizzes)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td class="text-center">
+                                <label class="mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" @(item.IsPublished ? Html.Raw("checked") : null)>
+                                    <span></span>
+                                </label>
+                            </td>
+                            <td>@item.QuestionsCount</td>
+                            <td>
+                                <a href="@Url.RouteUrl(RouteNames.Quiz.Update, new {id = item.Id})" class="btn btn-xs btn-primary"> <i class="fa fa-pencil"></i></a>
+                                <button class="btn btn-xs btn-danger delete-btn" data-url="@Url.RouteUrl(RouteNames.Quiz.Delete, new {id = item.Id})">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                                <a href="@Url.RouteUrl(RouteNames.Quiz.Questions, new {id = item.Id})" class="btn btn-xs btn-primary"> <i class="fa fa-list"></i> Questions</a>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/scripts/Quiz/QuizModel.js"></script>
+    <script>
+        $(function () {
+            QuizModel.init();
+        });
+    </script>
+}

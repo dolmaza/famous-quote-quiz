@@ -1,0 +1,128 @@
+﻿@model QuizQuestionEditorModel
+@{
+    ViewData["Title"] = $"Update Quiz '{Model.Quiz.Name}' Question #{Model.Question.Id}";
+}
+@section Breadcrumbs
+{
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="@Url.RouteUrl(RouteNames.Quiz.Quizzes)">Quizzes</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="@Url.RouteUrl(RouteNames.Quiz.Questions, new {id = Model.Quiz.Id})">$"Quiz '@Model.Quiz.Name' - Questions"</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>@ViewData["Title"]</span>
+            </li>
+        </ul>
+    </div>
+}
+
+<form asp-controller="Quizzes" asp-action="UpdateQuestion" method="post">
+    <partial name="_QuestionEditor" model="Model.Question" />
+</form>
+
+<h2 class="page-title">Answers</h2>
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="actions">
+            <button class="btn btn-primary" id="add-new" data-toggle="modal" data-target="#add-new-modal"><i class="fa fa-plus"></i> Add New</button>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="card-body">
+            <table id="quiz-question-answers-table" class="table table-bordered table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Answer Text</th>
+                        <th>Sort Index</th>
+                        <th>Is Correct</th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="students-table-body">
+
+                    @foreach (var item in Model.Question.Answers)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.AnswerText</td>
+                            <td>@item.SortIndex</td>
+                            <td class="text-center">
+                                <label class="mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" @(item.IsCorrect ? Html.Raw("checked") : null)>
+                                    <span></span>
+                                </label>
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-xs btn-primary"> <i class="fa fa-pencil"></i></a>
+                                <button class="btn btn-xs btn-danger delete-btn" data-url="#">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="add-new-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new Answer</h5>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="answer-id" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Answer Text</label>
+                            <textarea type="text" class="form-control" id="answer-text"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Sort Index</label>
+                            <input type="text" class="form-control" id="sort-index" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Is Correct</label>
+                            <div>
+                                <input class="checkbox-bootstrap-switch" id="is-correct" type="checkbox" value="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" id="save-quiz-question-answer" data-url="@Url.RouteUrl(RouteNames.Quiz.QuestionAnswerCreate, new {quizId = Model.Quiz.Id, questionId = Model.Question.Id})">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script src="~/scripts/Quiz/QuizQuestionEditorModel.js"></script>
+    <script>
+        $(function () {
+            QuizQuestionEditorModel.init();
+        });
+    </script>
+}

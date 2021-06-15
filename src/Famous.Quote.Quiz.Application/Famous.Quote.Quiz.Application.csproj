@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Famous.Quote.Quiz.Domain\Famous.Quote.Quiz.Domain.csproj" />
+    <ProjectReference Include="..\Famous.Quote.Quiz.Infrastructure\Famous.Quote.Quiz.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

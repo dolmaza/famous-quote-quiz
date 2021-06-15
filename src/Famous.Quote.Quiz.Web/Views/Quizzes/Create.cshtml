@@ -1,0 +1,32 @@
+﻿@model QuizEditorModel
+@{
+    ViewData["Title"] = "Add New Quiz";
+}
+@section Breadcrumbs
+{
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="@Url.RouteUrl(RouteNames.Quiz.Quizzes)">Quizzes</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>@ViewData["Title"]</span>
+            </li>
+        </ul>
+    </div>
+}
+
+<form asp-controller="Quizzes" asp-action="Create" method="post">
+    <partial name="_QuizEditor.cshtml" model="Model.Quiz" />
+</form>
+
+@section Scripts
+{
+    <script src="~/scripts/Quiz/QuizEditorModel.js"></script>
+    <script>
+        $(function () {
+            QuizEditorModel.init();
+        });
+    </script>
+}

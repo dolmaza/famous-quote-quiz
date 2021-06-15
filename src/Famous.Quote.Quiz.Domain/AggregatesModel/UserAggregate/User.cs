@@ -45,6 +45,8 @@ namespace Famous.Quote.Quiz.Domain.AggregatesModel.UserAggregate
         {
             var user = new User(role, userName, password, firstName, lastName);
 
+            user.UpdateQuizMode(QuizMode.MultipleChoice);
+
             switch (status)
             {
                 case UserStatus.Active:
@@ -84,7 +86,7 @@ namespace Famous.Quote.Quiz.Domain.AggregatesModel.UserAggregate
 
         public void AddNewQuiz(UserQuiz userQuiz)
         {
-            if (UserQuizzes.Equals(default))
+            if (UserQuizzes == null)
             {
                 UserQuizzes = new List<UserQuiz> { userQuiz };
             }

@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Famous.Quote.Quiz.Application.Extensions
+namespace Famous.Quote.Quiz.Domain.Extensions
 {
     public static class StringExtensions
     {

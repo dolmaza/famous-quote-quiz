@@ -18,7 +18,10 @@
 <div class="portlet light">
     <div class="portlet-title">
         <div class="actions">
-            <a class="btn btn-primary" asp-controller="Quizzes" asp-action="Create"><i class="fa fa-plus"></i> Add New</a>
+            @if (User.IsInRole(UserRole.Admin.ToString()))
+            {
+                <a class="btn btn-primary" asp-controller="Quizzes" asp-action="Create"><i class="fa fa-plus"></i> Add New</a>
+            }
         </div>
     </div>
     <div class="portlet-body">
@@ -28,7 +31,10 @@
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
-                        <th>Is Published</th>
+                        @if (User.IsInRole(UserRole.Admin.ToString()))
+                        {
+                            <th>Is Published</th>
+                        }
                         <th>Questions Count</th>
 
                         <th></th>
@@ -41,19 +47,29 @@
                         <tr>
                             <td>@item.Id</td>
                             <td>@item.Name</td>
-                            <td class="text-center">
-                                <label class="mt-checkbox mt-checkbox-outline">
-                                    <input type="checkbox" @(item.IsPublished ? Html.Raw("checked") : null)>
-                                    <span></span>
-                                </label>
-                            </td>
+                            @if (User.IsInRole(UserRole.Admin.ToString()))
+                            {
+                                <td class="text-center">
+                                    <label class="mt-checkbox mt-checkbox-outline">
+                                        <input type="checkbox" @(item.IsPublished ? Html.Raw("checked") : null)>
+                                        <span></span>
+                                    </label>
+                                </td>
+                            }
                             <td>@item.QuestionsCount</td>
                             <td>
-                                <a href="@Url.RouteUrl(RouteNames.Quiz.Update, new {id = item.Id})" class="btn btn-xs btn-primary"> <i class="fa fa-pencil"></i></a>
-                                <button class="btn btn-xs btn-danger delete-btn" data-url="@Url.RouteUrl(RouteNames.Quiz.Delete, new {id = item.Id})">
-                                    <i class="fa fa-trash-o"></i>
-                                </button>
-                                <a href="@Url.RouteUrl(RouteNames.Quiz.Questions, new {id = item.Id})" class="btn btn-xs btn-primary"> <i class="fa fa-list"></i> Questions</a>
+                                @if (User.IsInRole(UserRole.Admin.ToString()))
+                                {
+                                    <a href="@Url.RouteUrl(RouteNames.Quiz.Update, new {id = item.Id})" class="btn btn-xs btn-primary"> <i class="fa fa-pencil"></i></a>
+                                    <button class="btn btn-xs btn-danger delete-btn" data-url="@Url.RouteUrl(RouteNames.Quiz.Delete, new {id = item.Id})">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                    <a href="@Url.RouteUrl(RouteNames.Quiz.Questions, new {id = item.Id})" class="btn btn-xs btn-primary"> <i class="fa fa-list"></i> Questions</a>
+                                }
+                                @if (User.IsInRole(UserRole.User.ToString()))
+                                {
+                                    <a href="#" class="btn btn-xs btn-success"> <i class="fa fa-check"></i> Take a Quiz</a>
+                                }
                             </td>
                         </tr>
                     }

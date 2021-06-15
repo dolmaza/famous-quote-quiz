@@ -1,7 +1,7 @@
-﻿using Famous.Quote.Quiz.Application.Extensions;
-using Famous.Quote.Quiz.Application.Services.DataModels;
+﻿using Famous.Quote.Quiz.Application.Services.DataModels;
 using Famous.Quote.Quiz.Domain.AggregatesModel.UserAggregate;
 using Famous.Quote.Quiz.Domain.Exceptions;
+using Famous.Quote.Quiz.Domain.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

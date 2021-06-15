@@ -19,7 +19,7 @@ namespace Famous.Quote.Quiz.Domain.AggregatesModel.UserAggregate
 
         public void AddUserQuizAnswer(UserQuizAnswer userQuizAnswer)
         {
-            if (UserQuizAnswers.Equals(default))
+            if (UserQuizAnswers == null)
             {
                 UserQuizAnswers = new List<UserQuizAnswer> { userQuizAnswer };
             }

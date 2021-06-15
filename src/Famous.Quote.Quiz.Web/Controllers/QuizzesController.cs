@@ -4,6 +4,7 @@ using Famous.Quote.Quiz.Domain.AggregatesModel.UserAggregate;
 using Famous.Quote.Quiz.Domain.Exceptions;
 using Famous.Quote.Quiz.Web.Infrastructure;
 using Famous.Quote.Quiz.Web.Models.Quizzes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace Famous.Quote.Quiz.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         [Route("quizzes/create", Name = RouteNames.Quiz.Create)]
         public IActionResult Create()
         {
@@ -38,6 +40,7 @@ namespace Famous.Quote.Quiz.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("quizzes/create", Name = RouteNames.Quiz.Create)]
         public async Task<IActionResult> Create(QuizDto quizDto)
         {
@@ -67,6 +70,7 @@ namespace Famous.Quote.Quiz.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         [Route("quizzes/{id}/update", Name = RouteNames.Quiz.Update)]
         public async Task<IActionResult> Update(int id)
         {
@@ -81,6 +85,7 @@ namespace Famous.Quote.Quiz.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("quizzes/{id}/update", Name = RouteNames.Quiz.Update)]
         public async Task<IActionResult> Update(QuizDto quizDto)
         {
@@ -110,6 +115,7 @@ namespace Famous.Quote.Quiz.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("quizzes/{id}/delete", Name = RouteNames.Quiz.Delete)]
         public async Task<IActionResult> Delete(int id)
         {
@@ -130,6 +136,7 @@ namespace Famous.Quote.Quiz.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         [Route("quizzes/{id}/questions", Name = RouteNames.Quiz.Questions)]
         public async Task<IActionResult> QuizQuestions(int id)
         {
@@ -144,6 +151,7 @@ namespace Famous.Quote.Quiz.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("quizzes/{id}/questions/create", Name = RouteNames.Quiz.QuestionsCreate)]
         public async Task<IActionResult> CreateQuestion(int id, QuestionDto questionDto)
         {
@@ -168,6 +176,7 @@ namespace Famous.Quote.Quiz.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("quizzes/{quizId}/questions/{id}/delete", Name = RouteNames.Quiz.QuestionsDelete)]
         public async Task<IActionResult> DeleteQuestion(int quizId, int id)
         {
@@ -188,6 +197,7 @@ namespace Famous.Quote.Quiz.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         [Route("quizzes/{quizId}/questions/{id}/update", Name = RouteNames.Quiz.QuestionsUpdate)]
         public async Task<IActionResult> UpdateQuestion(int quizId, int id)
         {
@@ -202,6 +212,7 @@ namespace Famous.Quote.Quiz.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("quizzes/{quizId}/questions/{id}/update", Name = RouteNames.Quiz.QuestionsUpdate)]
         public async Task<IActionResult> UpdateQuestion(int quizId, int id, QuestionDto questionDto)
         {
@@ -235,6 +246,7 @@ namespace Famous.Quote.Quiz.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("quizzes/{quizId}/questions/{questionId}/answers/create", Name = RouteNames.Quiz.QuestionAnswerCreate)]
         public async Task<IActionResult> CreateQuestionAnswer(int quizId, int questionId, AnswerDto answerDto)
         {

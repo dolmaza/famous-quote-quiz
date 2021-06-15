@@ -56,7 +56,7 @@ namespace Famous.Quote.Quiz.Domain.AggregatesModel.QuizAggregate
 
         public void AddNewQuestion(Question question)
         {
-            if (Questions.Equals(default))
+            if (Questions == null)
             {
                 Questions = new List<Question> { question };
             }
@@ -68,20 +68,17 @@ namespace Famous.Quote.Quiz.Domain.AggregatesModel.QuizAggregate
 
         public void DeleteQuestion(int id)
         {
-            if (!Questions.Equals(default))
-            {
-                var question = Questions.FirstOrDefault(q => q.Id == id);
+            var question = Questions?.FirstOrDefault(q => q.Id == id);
 
-                if (question != default)
-                {
-                    Questions.Remove(question);
-                }
+            if (question != null)
+            {
+                Questions.Remove(question);
             }
         }
 
         public Question GetQuestionById(int id)
         {
-            return Questions.Equals(default) ? default : Questions.FirstOrDefault(q => q.Id == id);
+            return Questions?.FirstOrDefault(q => q.Id == id);
         }
     }
 }

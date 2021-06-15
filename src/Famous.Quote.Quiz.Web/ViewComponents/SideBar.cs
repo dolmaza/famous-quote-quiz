@@ -28,7 +28,6 @@ namespace Famous.Quote.Quiz.Web.ViewComponents
                 }
             };
 
-
             if (User.IsInRole(UserRole.Admin.ToString()))
             {
                 model.Add(new SidebarMenuModel
@@ -39,14 +38,16 @@ namespace Famous.Quote.Quiz.Web.ViewComponents
                     IsActive = usersUrl == requestedUrl
                 });
 
-                model.Add(new SidebarMenuModel
-                {
-                    Caption = "Quizzes",
-                    IconName = "fa fa-list",
-                    Url = quizzesUrl,
-                    IsActive = quizzesUrl == requestedUrl
-                });
+
             }
+
+            model.Add(new SidebarMenuModel
+            {
+                Caption = "Quizzes",
+                IconName = "fa fa-list",
+                Url = quizzesUrl,
+                IsActive = quizzesUrl == requestedUrl
+            });
 
             if (User.IsInRole(UserRole.User.ToString()))
             {

@@ -3,12 +3,14 @@ using Famous.Quote.Quiz.Application.Services.DataModels;
 using Famous.Quote.Quiz.Domain.Exceptions;
 using Famous.Quote.Quiz.Web.Infrastructure;
 using Famous.Quote.Quiz.Web.Models.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace Famous.Quote.Quiz.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController : BaseController
     {
         private readonly IUserService _userService;

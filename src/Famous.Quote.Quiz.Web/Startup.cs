@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
 
 namespace Famous.Quote.Quiz.Web
 {
@@ -77,15 +78,16 @@ namespace Famous.Quote.Quiz.Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            Migrate(app);
+            Migrate(app).GetAwaiter();
         }
 
-        static void Migrate(IApplicationBuilder app)
+        static async Task Migrate(IApplicationBuilder app)
         {
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                serviceScope.ServiceProvider.GetService<FamousQuoteQuizDbContext>().Database.Migrate();
-            }
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            var context = serviceScope.ServiceProvider.GetService<FamousQuoteQuizDbContext>();
+            await context.Database.MigrateAsync();
+
+            await DbInitializer.Initialize(context);
         }
     }
 }
